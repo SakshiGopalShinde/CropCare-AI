@@ -6,7 +6,7 @@
 
 ---
 
-## ⚠️ Disclaimer
+ ⚠️ Disclaimer
 
 This project was primarily developed and tested locally during the hackathon and research phase. Some commits, dataset uploads, and documentation updates were pushed later for repository completeness and reproducibility.
 

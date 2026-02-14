@@ -1,4 +1,4 @@
-# 🌾 KrishiCare — Smart Crop Disease Detection Platform
+<img width="784" height="147" alt="image" src="https://github.com/user-attachments/assets/4ce13869-ed62-44fe-b53d-3a2b5759769c" /># 🌾 KrishiCare — Smart Crop Disease Detection Platform
 
 ### AI‑Powered Crop Health Monitoring | Built for Smart India Hackathon
 
@@ -67,9 +67,9 @@ The solution integrates computer vision models, scalable backend APIs, and a res
 
 Process overview:
 
-* Sample dataset images are analyzed and infected regions are localized
-* Disease‑affected leaf portions are isolated
-* Image patches are generated and passed to the prediction model
+*  (a) Sample images from the dataset, with red boxes indicating the presence of rust. 
+*  (b) Section of images with rust effected area 
+*   (c) Final patches from the sample image, which are fed to the model for prediction
 
 ---
 
@@ -107,23 +107,6 @@ Pipeline Steps:
 
 This modular architecture ensures scalability, faster inference, and real‑world deployment readiness.
 
----
-
-![System Architecture](https://github.com/SakshiGopalShinde/cropcare/raw/main/test_images/Screenshot%202026-02-14%20204019.png)
-
-### End‑to‑End Workflow
-
-1. **Data Sources** → Farmer images, historical datasets, and weather APIs
-2. **Preprocessing** → Cleaning, resizing, augmentation, dataset splitting
-3. **Model Training** → CNN models (EfficientNet / ResNet) trained on augmented data
-4. **Segmentation Module** → UNet identifies infected regions
-5. **Model Optimization** → Quantization and TensorFlow Lite deployment
-6. **Backend API** → FastAPI/TensorFlow Serving handles predictions
-7. **Frontend** → Flutter Web interface for farmers
-8. **Cloud Storage** → Model hosting and data logging
-9. **Communication Layer** → Risk visualization, alerts, and periodic reports
-
-This modular architecture ensures scalability, faster inference, and real‑world deployment readiness.
 
 ---
 

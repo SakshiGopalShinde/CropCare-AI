@@ -64,7 +64,6 @@ The solution integrates computer vision models, scalable backend APIs, and a res
 ### Patch Extraction from Leaf Images
 
 ![Patch Extraction](https://github.com/SakshiGopalShinde/cropcare/raw/main/test_images/Screenshot%202026-02-14%20203158.png)
-Direct image link: [https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20203158.png](https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20203158.png)
 
 Process overview:
 
@@ -77,7 +76,7 @@ Process overview:
 ### UNet Segmentation Workflow
 
 ![Segmentation Pipeline](https://github.com/SakshiGopalShinde/cropcare/raw/main/test_images/Screenshot%202026-02-14%20203214.png)
-Direct image link: [https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20203214.png](https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20203214.png)
+
 
 Pipeline Steps:
 
@@ -92,7 +91,7 @@ Pipeline Steps:
 ## 🏗️ System Architecture & Workflow
 
 ![System Architecture](https://github.com/SakshiGopalShinde/cropcare/raw/main/test_images/Screenshot%202026-02-14%20204019.png)
-Direct architecture link: [https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20204019.png](https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20204019.png)
+
 
 ### End‑to‑End Workflow
 

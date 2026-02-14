@@ -1,82 +1,142 @@
-# 🌾 KrishiCare -- Smart Crop Disease Detection
+# 🌾 KrishiCare — Smart Crop Disease Detection Platform
 
-### AI-Powered Crop Health Monitoring | Built for Smart India Hackathon
+### AI‑Powered Crop Health Monitoring | Built for Smart India Hackathon
 
 🔗 Live Demo: [https://cropcareai-u7co.onrender.com/](https://cropcareai-u7co.onrender.com/)
 
 ---
 
-## About the Project
+## ⚠️ Disclaimer
 
-KrishiCare is an AI-powered crop health monitoring web application built using Flutter Web. It allows farmers to upload crop images and instantly detect plant diseases using trained deep-learning models.
-
-The goal is to provide early disease detection, improve crop yield, and support farmers with accessible technology.
+This project was primarily developed and tested locally during the hackathon and research phase. Some commits, dataset uploads, and documentation updates were pushed later for repository completeness and reproducibility.
 
 ---
 
-## Features
+## About the Project
 
-AI-Based Crop Disease Detection
+**KrishiCare (Kisan Rakshak)** is an end‑to‑end AI‑powered crop health monitoring system designed to detect plant diseases early using deep learning. Farmers can upload crop images and receive instant disease predictions along with actionable recommendations.
 
-* Upload crop / leaf images
-* Detect possible plant diseases
-* Display disease name + confidence score
+The solution integrates computer vision models, scalable backend APIs, and a responsive Flutter Web interface to deliver real‑time agricultural decision support.
 
-Deep Learning Integration
+### Key Objectives
 
-* Backend ML API for predictions
-* Supports multiple crops (wheat, rice, maize, etc.)
-* Uses trained CNN models
+* Early disease detection to reduce crop loss
+* Improve yield through timely intervention
+* Provide accessible AI tools for farmers
+* Enable scalable agricultural monitoring
 
-Built With Flutter Web
+---
 
-* Clean and modern UI
-* Fully responsive across devices
-* Runs directly in browser
+## Key Capabilities
 
-Hosted on Render
+### AI‑Based Crop Disease Detection
 
-* Stable hosting
-* Fast and lightweight deployment
-* Optimized for Flutter Web
+* Upload crop or leaf images from smartphone
+* Detect disease type and severity
+* Confidence‑scored predictions using CNN models (EfficientNet, ResNet)
+
+### Remote Crop Health Monitoring
+
+* Drone + satellite NDVI monitoring
+* Detect stress zones in large farms
+* Predict potential outbreak areas
+
+### Geo‑Mapping & Risk Alerts
+
+* GIS‑based disease hotspot mapping
+* Real‑time alerts to nearby farmers
+* Prevent rapid disease spread
+
+### Actionable Agronomy Guidance
+
+* Localized treatment recommendations
+* Preventive measures based on crop stage
+* Weather‑aware intervention planning
+
+### National Recognition
+
+**Kisan Rakshak** was selected as a winning solution at **Smart India Hackathon 2025**, validating its innovation, feasibility, and real‑world impact.
 
 ---
 
 ## 🧠 Image Segmentation & Patch Generation Pipeline
 
-To improve disease detection accuracy, KrishiCare uses an advanced segmentation-based pipeline that focuses on infected regions of crop leaves before prediction.
+### Patch Extraction from Leaf Images
 
-### 1️⃣ Patch Extraction from Leaf Images
+![Patch Extraction](https://github.com/SakshiGopalShinde/cropcare/raw/main/test_images/Screenshot%202026-02-14%20203158.png)
+Direct image link: [https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20203158.png](https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20203158.png)
 
-The system first identifies important regions of the image and extracts smaller patches that contain disease patterns.
+Process overview:
 
-![Patch Extraction](Screenshot 2026-02-14 203158.png)
-
-Explanation of the process:
-
-* **(a)** Sample images from the dataset, where red boxes highlight rust-infected regions.
-* **(b)** Selected portion of the leaf containing disease-affected areas.
-* **(c)** Final image patches generated from the sample image. These patches are fed into the model for prediction.
-
-This helps the model focus only on meaningful disease regions instead of the full background image.
+* Sample dataset images are analyzed and infected regions are localized
+* Disease‑affected leaf portions are isolated
+* Image patches are generated and passed to the prediction model
 
 ---
 
-### 2️⃣ UNet Segmentation Workflow
+### UNet Segmentation Workflow
 
-KrishiCare uses a UNet-based segmentation pipeline to improve prediction quality and localize disease spots.
-
-![Segmentation Pipeline](Screenshot 2026-02-14 203214.png)
+![Segmentation Pipeline](https://github.com/SakshiGopalShinde/cropcare/raw/main/test_images/Screenshot%202026-02-14%20203214.png)
+Direct image link: [https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20203214.png](https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20203214.png)
 
 Pipeline Steps:
 
-1. **Downsampling** → Input images are resized to reduce computational load.
-2. **Patch Generation** → Includes both adaptive patching and grid patching modules.
-3. **Data Augmentation** → Patch-level augmentation improves model robustness.
-4. **Training** → Adaptive patches are fed into the UNet segmentation model to learn disease patterns.
-5. **Forward Pass + Feedback** → Grid patches generate segmentation masks, which are sent back to the adaptive patch module as feedback for improved learning.
+1. Input images are downsampled for efficient computation
+2. Adaptive + grid patch generation modules create focused training samples
+3. Patch‑level data augmentation improves generalization
+4. Adaptive patches train a UNet segmentation network
+5. Grid patch predictions generate masks that feed back into the adaptive module
 
-This segmentation approach ensures the model detects diseases more accurately, even in complex backgrounds.
+---
+
+## 🏗️ System Architecture & Workflow
+
+![System Architecture](https://github.com/SakshiGopalShinde/cropcare/raw/main/test_images/Screenshot%202026-02-14%20204019.png)
+Direct architecture link: [https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20204019.png](https://github.com/SakshiGopalShinde/cropcare/blob/main/test_images/Screenshot%202026-02-14%20204019.png)
+
+### End‑to‑End Workflow
+
+1. Data Sources → Farmer images, historical datasets, and weather APIs
+2. Preprocessing → Cleaning, resizing, augmentation, dataset splitting
+3. Model Training → CNN models (EfficientNet / ResNet) trained on augmented data
+4. Segmentation Module → UNet identifies infected regions
+5. Model Optimization → Quantization and TensorFlow Lite deployment
+6. Backend API → FastAPI/TensorFlow Serving handles predictions
+7. Frontend → Flutter Web interface for farmers
+8. Cloud Storage → Model hosting and data logging
+9. Communication Layer → Risk visualization, alerts, and periodic reports
+
+This modular architecture ensures scalability, faster inference, and real‑world deployment readiness.
+
+---
+
+![System Architecture](https://github.com/SakshiGopalShinde/cropcare/raw/main/test_images/Screenshot%202026-02-14%20204019.png)
+
+### End‑to‑End Workflow
+
+1. **Data Sources** → Farmer images, historical datasets, and weather APIs
+2. **Preprocessing** → Cleaning, resizing, augmentation, dataset splitting
+3. **Model Training** → CNN models (EfficientNet / ResNet) trained on augmented data
+4. **Segmentation Module** → UNet identifies infected regions
+5. **Model Optimization** → Quantization and TensorFlow Lite deployment
+6. **Backend API** → FastAPI/TensorFlow Serving handles predictions
+7. **Frontend** → Flutter Web interface for farmers
+8. **Cloud Storage** → Model hosting and data logging
+9. **Communication Layer** → Risk visualization, alerts, and periodic reports
+
+This modular architecture ensures scalability, faster inference, and real‑world deployment readiness.
+
+---
+
+## Tech Stack
+
+Frontend: Flutter Web
+Backend API: Python / FastAPI / Flask
+ML Models: TensorFlow / PyTorch
+Segmentation: UNet
+Model Optimization: TensorFlow Lite + Quantization
+Hosting: Render
+Storage: Firebase / Cloudinary / Cloud Storage
 
 ---
 
@@ -90,22 +150,13 @@ lib/
 
 assets/
 web/
+test_images/
 
 ---
 
 ## How It Works
 
-User uploads crop image → Flutter Web sends image to ML API → API processes image using trained model → Prediction + confidence score returned → Results displayed to the user
-
----
-
-## Tech Stack
-
-Frontend: Flutter Web
-Backend API: Python / FastAPI / Flask
-ML Models: TensorFlow / PyTorch
-Hosting: Render
-Storage: Firebase / Cloudinary / Local Server
+User uploads crop image → Flutter Web sends image to ML API → Segmentation + CNN model processes image → Prediction + confidence score returned → Results displayed with guidance
 
 ---
 
@@ -130,12 +181,12 @@ Upload /build/web to Render Static Site.
 
 ## Future Improvements
 
-* More crop disease models
+* More crop disease datasets
 * Offline prediction support
-* Farmer language support
 * Android & iOS mobile apps
-* Crop treatment recommendations
+* Multilingual farmer advisory
+* Integration with IoT soil sensors
 
 ---
 
-If you like this project, please star the repo.
+If you found this project useful, please consider starring the repository.

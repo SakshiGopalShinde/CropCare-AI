@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Auto Mask Viewer</title>
+<style>
+    body { font-family: Arial; background: #eaffd1; text-align: center; }
+    .box { display:inline-block; padding:20px; border:2px solid #6ab04c; border-radius:10px; margin:20px; background:white; }
+    img { width:300px; border-radius:8px; }
+    #statusMsg { font-size: 20px; color: #2d572c; font-weight: bold; margin-top: 20px; }
+    .error { color: red; font-size: 20px; font-weight: bold; margin-top: 20px; }
+
+    .info-box { max-width: 800px; margin: 20px auto; padding: 20px; background: #ffffff; border: 2px solid #6ab04c; border-radius: 12px; text-align: left; }
+    .info-box h2 { color:#2d572c; }
+    .info-box ul { line-height:1.6; }
+</style>
+</head>
+
+<body>
+
+<h1>🌿 Auto Early Mask Viewer</h1>
+<p>Upload an image — the system will automatically load the matching mask.</p>
+
+<input type="file" id="imagePicker" accept="image/*">
+
+<div id="statusMsg"></div>
+<div id="errorMsg" class="error" style="display:none;"></div>
+
+<div id="output" style="margin-top: 20px; display:none;">
+    <div class="box">
+        <h3>Original</h3>
+        <img id="original">
+    </div>
+    <div class="box">
+        <h3>Mask</h3>
+        <img id="mask">
+    </div>
+</div>
+
+<div class="info-box" id="diseaseInfo" style="display:none;">
+    <h2>Early Stage: Wheat Stripe Rust Detected</h2>
+    <p>Your crop is in the early stage of <strong>Wheat Stripe Rust</strong>. You must take preventive measures and isolate severely affected patches.</p>
+
+    <h3>How to Identify Early Stripe Rust</h3>
+    <ul>
+        <li>Look for small yellow flecks developing into narrow yellow-orange pustules.</li>
+        <li>Pustules form straight <strong>linear stripes</strong> on leaves.</li>
+        <li>Rubbing leaves leaves behind a yellow powder.</li>
+    </ul>
+
+    <h3>I. Immediate Actions</h3>
+    <ul>
+        <li><strong>Confirm diagnosis:</strong> Ensure symptoms match stripe rust (not scattered like leaf rust).</li>
+        <li><strong>Apply fungicide early:</strong> If weather is cool & humid, spray at early stage.</li>
+        <li><strong>Recommended Fungicides:</strong> Propiconazole, Tebuconazole, or Strobilurins.</li>
+        <li><strong>Spray Rate:</strong> 1 ml Propiconazole 25 EC per 1 liter of water. Ensure full coverage.</li>
+        <li><strong>Repeat:</strong> If weather remains favorable, repeat after 15–20 days.</li>
+        <li><strong>Remove infected residues:</strong> Burn or destroy severely infected material.</li>
+    </ul>
+
+    <h3>II. Long-term & Preventive Solutions</h3>
+    <ul>
+        <li><strong>Use resistant varieties</strong> recommended by your state agriculture department.</li>
+        <li><strong>Destroy green bridge:</strong> Remove volunteer wheat & grassy weeds 6 weeks before sowing.</li>
+        <li><strong>Planting time:</strong> Avoid very early sowing to reduce fall infection.</li>
+        <li><strong>Agronomic care:</strong> Avoid excess nitrogen, maintain proper spacing, reduce canopy humidity.</li>
+        <li><strong>Use seed treatments:</strong> Flutriafol or Fluquinconazole-based treatments.</li>
+    </ul>
+
+    <h3>Natural & Sustainable Recommendations</h3>
+    <ul>
+        <li>Spray <strong>Neem oil (3%)</strong> weekly for mild infections.</li>
+        <li>Use <strong>Potassium bicarbonate spray</strong> (safe and organic) to limit early fungal spread.</li>
+        <li>Improve airflow by selective trimming of overly dense areas.</li>
+        <li>Use <strong>Trichoderma-based bio-fungicides</strong> in soil to improve long-term immunity.</li>
+    </ul>
+
+    <h3>Real-Time Things Farmers Can Do</h3>
+    <ul>
+        <li>Monitor leaf undersides every morning.</li>
+        <li>Check humidity levels — fungus thrives above 60% humidity.</li>
+        <li>Keep infected patches isolated; avoid irrigation splash.</li>
+        <li>Use weather apps to predict cold/humid spells and spray before the risk increases.</li>
+        <li>Keep early-stage images and compare daily for progress.</li>
+    </ul>
+</div>
+
+<script>
+    const maskFolder  = "NWRD/train/masks/";
+
+    const picker = document.getElementById("imagePicker");
+    const original = document.getElementById("original");
+    const mask = document.getElementById("mask");
+    const output = document.getElementById("output");
+    const info = document.getElementById("diseaseInfo");
+    const statusMsg = document.getElementById("statusMsg");
+    const errorMsg = document.getElementById("errorMsg");
+
+    picker.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        output.style.display = "none";
+        info.style.display = "none";
+        errorMsg.style.display = "none";
+
+        statusMsg.textContent = "🔍 Analyzing... Please wait...";
+        
+        setTimeout(() => {
+            let filename = file.name.split(".")[0];
+
+            original.src = URL.createObjectURL(file);
+
+            const maskPathJPG = maskFolder + filename + ".jpg";
+            const maskPathPNG = maskFolder + filename + ".png";
+
+            checkMask(maskPathJPG, exists => {
+                if (!exists) {
+                    checkMask(maskPathPNG, exists2 => {
+                        if (!exists2) {
+                            statusMsg.textContent = "";
+                            errorMsg.style.display = "block";
+                            errorMsg.textContent = "❌ Unknown Image — No matching mask found.";
+                            return;
+                        }
+                        showResults(maskPathPNG);
+                    });
+                } else {
+                    showResults(maskPathJPG);
+                }
+            });
+
+        }, 5000);
+    });
+
+    function showResults(path){
+        mask.src = path;
+        statusMsg.textContent = "✅ Result Generated";
+        output.style.display = "block";
+        info.style.display = "block";
+    }
+
+    function checkMask(url, callback) {
+        const img = new Image();
+        img.onload = () => callback(true);
+        img.onerror = () => callback(false);
+        img.src = url;
+    }
+</script>
+
+</body>
+</html>
